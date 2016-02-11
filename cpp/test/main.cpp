@@ -10,6 +10,29 @@ int main()
     // memcpy(test+1,test,sizeof(int)*2);
 
     LRUCache* lru = new LRUCache(2048);
+	// 2,[set(2,1),set(1,1),set(2,3),set(4,1),get(1),get(2)]
+	// lru->set(2,1);
+	// lru->set(1,1);
+	// lru->set(2,3);
+	// lru->set(4,1);
+	// lru->get(1);
+	// lru->get(2);
+	// 3,[set(1,1),set(2,2),set(3,3),set(4,4),get(4),get(3),get(2),get(1),set(5,5),get(1),get(2),get(3),get(4),get(5)]
+	// lru->set(1,1);
+	// lru->set(2,2);
+	// lru->set(3,3);
+	// lru->set(4,4);
+	// lru->get(4);
+	// lru->get(3);
+	// lru->get(2);
+	// lru->get(1);
+	// lru->set(5,5);
+	// lru->get(1);
+	// lru->get(2);
+	// lru->get(3);
+	// lru->get(4);
+	// lru->get(5);
+	// 
 	// lru->set(5,5);
 	// lru->set(4,4);
 	// lru->set(3,3);
