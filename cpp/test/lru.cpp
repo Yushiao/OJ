@@ -1,20 +1,18 @@
-#include <iostream>
+// #include <iostream>
 #include <cstring>
 #include <map>
+#include <vector>
 class LRUCache{
 public:
-    int *key_list;
+    // int *key_list;
     int max_capacity;
     int now_capacity;
 	std::map<int,int> mymap;
+	std::vector<int> mykey;
 
     LRUCache(int capacity) {
         max_capacity = capacity;
-        now_capacity = 0;
-        key_list = new int[capacity];
-        for(int i = 0; i < capacity; i++){
-            key_list[i] = -1;
-        }
+		now_capacity = 0;
     }
 
     int get(int key) {
@@ -22,37 +20,37 @@ public:
 		if(mymap.count(key)>0){ // check exist
 			result = mymap[key];
 			for(int i = 0; i < now_capacity; i++){ // find key location
-				if(key_list[i] == key){ // found
-					memcpy(key_list+1, key_list, sizeof(int)*i); // move key
-					key_list[0] = key;
+				if(mykey[i] == key){ // found
+					mykey.erase(mykey.begin() + i);
+					mykey.push_back(key);
 					break;
 				}
 			}
 		}
-        std::cout << key << ' ' << result << std::endl;
+        // std::cout << key << ' ' << result << std::endl;
         return result;
     }
 
     void set(int key, int value) {
 		if(mymap.count(key)>0){ // check exist
 			for(int i = 0; i < now_capacity; i++){ // find key location
-				if(key_list[i] == key){ // found
-					memcpy(key_list+1, key_list, sizeof(int)*i); // move key
-					key_list[0] = key;
+				if(mykey[i] == key){ // found
+					mykey.erase(mykey.begin() + i);
+					mykey.push_back(key);
 					break;
 				}
 			}
 			mymap[key] = value;
 		}
 		else{
-            now_capacity++;
-            if(now_capacity > max_capacity) {
-                now_capacity = max_capacity;
-                mymap.erase(key_list[max_capacity-1]);
-            }
-            memcpy(key_list+1, key_list, sizeof(int)*(now_capacity-1));
-            key_list[0] = key;
+			mykey.push_back(key);
 			mymap[key] = value;
+			now_capacity++;
+            if(now_capacity > max_capacity) {
+                mymap.erase(mykey[0]);
+				mykey.erase(mykey.begin());
+				now_capacity--;
+            }
 		}
     }
 };
