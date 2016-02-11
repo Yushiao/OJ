@@ -1,10 +1,14 @@
 #include <iostream>
+#include <cstring>
 #include "lru.cpp"
 
 using namespace std;
 
 int main()
 {
+    // int test[] = {1,2,3,4,5};
+    // memcpy(test+1,test,sizeof(int)*2);
+
     LRUCache* lru = new LRUCache(2048);
 	// lru->set(5,5);
 	// lru->set(4,4);

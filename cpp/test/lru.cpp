@@ -1,4 +1,5 @@
 // #include <iostream>
+#include <cstring>
 class LRUCache{
 public:
     int *key_list;
@@ -21,10 +22,12 @@ public:
 		for(int i = 0; i < now_capacity; i++){ // find
 			if(key_list[i] == key){
 				result = value_list[i];
-				for(; i > 0; i--){ // LRU
-					value_list[i] = value_list[i-1];
-					key_list[i] = key_list[i-1];
-				}
+				// for(; i > 0; i--){ // LRU
+					// value_list[i] = value_list[i-1];
+					// key_list[i] = key_list[i-1];
+				// }
+				memcpy(key_list+1, key_list, sizeof(int)*i);
+				memcpy(value_list+1, value_list, sizeof(int)*i);
 				value_list[0] = result;
 				key_list[0] = key;
 				break;
@@ -38,10 +41,12 @@ public:
         int result = -1;
 		for(int i = 0; i < now_capacity; i++){ // find key
 			if(key_list[i] == key){
-				for(; i > 0; i--){ // LRU
-					value_list[i] = value_list[i-1];
-					key_list[i] = key_list[i-1];
-				}
+				// for(; i > 0; i--){ // LRU
+					// value_list[i] = value_list[i-1];
+					// key_list[i] = key_list[i-1];
+				// }
+				memcpy(key_list+1, key_list, sizeof(int)*i);
+				memcpy(value_list+1, value_list, sizeof(int)*i);
 				result = key;
 				value_list[0] = result;
 				key_list[0] = key;
@@ -51,22 +56,14 @@ public:
 		if(result == -1){
 			now_capacity++;
 			if(now_capacity > max_capacity) now_capacity = max_capacity;
-			for(int i = now_capacity-1; i > 0; i--){ // LRU
-				value_list[i] = value_list[i-1];
-				key_list[i] = key_list[i-1];
-			}
+			// for(int i = now_capacity-1; i > 0; i--){ // LRU
+				// value_list[i] = value_list[i-1];
+				// key_list[i] = key_list[i-1];
+			// }
+			memcpy(key_list+1, key_list, sizeof(int)*(now_capacity-1));
+			memcpy(value_list+1, value_list, sizeof(int)*(now_capacity-1));
 			key_list[0] = key;
 			value_list[0] = value;
-			// if(now_capacity == max_capacity){
-				// key_list[now_capacity-1] = key;
-				// value_list[now_capacity-1] = value;
-			// }
-			// else{
-				// key_list[now_capacity] = key;
-				// value_list[now_capacity] = value;
-				// now_capacity++;
-			// }
 		}
     }
-
 };

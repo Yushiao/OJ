@@ -13,9 +13,12 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+# Compile file and Code::Blocks file
 *.o
 *.cbp
 *.depend
+*.layout
 
 # Windows shortcuts
 *.lnk
